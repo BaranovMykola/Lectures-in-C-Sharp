@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Classes
 {
-    class Student
+    class Student : IComparer<Student>
     {
         double mark;
 
@@ -60,6 +60,10 @@ namespace Classes
             //return Surname+" "+Mark.ToString()+" "+Born.Year.ToString()+" "+GenderType.ToString();
             return string.Format("{0} {1} {2} {3}", Surname, Mark, Born.Year, GenderType);
         }
+        int IComparer<Student>.Compare(Student x, Student y)
+        {
+            return string.Compare(x.Surname, y.Surname);
+        }
     }
     class Classes
     {
@@ -87,6 +91,8 @@ namespace Classes
                 lst[index++] = new Student(spl[0], DateTime.Parse(spl[1]), double.Parse(spl[2]), male);
             }
             Console.WriteLine();
+            IComparer<Student> ic = (IComparer<Student>)new Student("", new DateTime());
+            Array.Sort(lst, ic);
             foreach(var i in lst)
             {
                 Console.WriteLine(i);
