@@ -1,0 +1,38 @@
+﻿[
+Faculty1
+	{
+	Group11
+		(
+		Student111 3
+		Student112 5
+		Student113 4
+		)
+	}
+	{
+	Group12
+		(
+		Student121 3
+		Student122 3
+		Student123 4
+		)
+	}
+]
+[
+Faculty0
+	{
+	Group21
+		(
+		Student211 5
+		Student212 5
+		Student213 5
+		)
+	}
+	{
+	Group22
+		(
+		Student221 5
+		Student222 5
+		Student223 4
+		)
+	}
+]

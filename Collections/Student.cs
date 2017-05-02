@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,8 @@ namespace Collections
             Name = name;
             AverageMark = averageMark;
         }
-        public override string ToString() => string.Format("{0} - {1}", Name, AverageMark);
+        public override string ToString() => string.Format("{0,-20}{1}", Name, AverageMark);
         public override int GetHashCode() => ToString().GetHashCode();
+        public bool IsExcellent() => AverageMark == 5;
     }
 }

@@ -14,7 +14,7 @@ namespace Collections
         public List<Student> Students
         {
             get { return students; }
-            protected set { students = value; }
+            set { students = value; }
         }
         public Group()
         {
@@ -27,10 +27,26 @@ namespace Collections
         }
         public override string ToString()
         {
-            string output = string.Format("Group: {0}\tStudents:\n", Name)
-            output += string.Join("\n", Students);
+            string output = string.Format("Group: {0}\n", Name);
+            output += string.Format("{0,-5}{1,-20}{2}\n\n", null, "[Name]", "[Mark]");
+            var studentFormat =
+                from item in Students
+                select string.Format("{0,-5}{1,-20}", null, item);
+            output += string.Join("\n", studentFormat);
             return output;
         }
         public override int GetHashCode() => ToString().GetHashCode();
+        public int ExcellentPupils()
+        {
+            int count = 0;
+            foreach (var item in Students)
+            {
+                if(item.IsExcellent())
+                {
+                    ++count;
+                }
+            }
+            return count;
+        }
     }
 }

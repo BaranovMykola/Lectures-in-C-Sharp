@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,10 @@ namespace Collections
 {
     class CollectionsProgram
     {
+        public static void foo(StreamReader sr)
+        {
+            Console.WriteLine(sr.ReadLine());
+        }
         static void Main(string[] args)
         {
             var library = Book.ReadFromFile("Library.txt");
@@ -19,20 +24,10 @@ namespace Collections
             int maxItems = 300;
 
             Console.WriteLine("Removing all books, with items > {0}", maxItems);
-            bool wasRemoved = true;
-            while (wasRemoved)
-            {
-                foreach (var item in library)
-                {
-                    wasRemoved = false;
-                    if (item.Value < maxItems)
-                    {
-                        library.Remove(item.Key);
-                        wasRemoved = true;
-                        break;
-                    }
-                }
-            }
+            library =
+                (from item in library
+                 where item.Value <= maxItems
+                 select item).ToDictionary(s => s.Key, v => v.Value);
 
             Console.WriteLine("Done!");
 
@@ -45,13 +40,18 @@ namespace Collections
             Console.WriteLine();
             Console.WriteLine();
 
-            Student s1 = new Student("name1", 5);
-            Student s2 = new Student("name2", 5);
-            Student[] arrStd = { s1, s2 };
-            Group grp = new Group("Group1", arrStd);
+            StreamReader sr = new StreamReader("../../Faculty.txt");
+            var f = Faculty.Read(sr);
+            f.Sort((s1, s2) => s1.Name.CompareTo(s2.Name));
+            Dictionary<Faculty, int> excellent = new Dictionary<Faculty, int>();
+            foreach (var item in f)
+            {
+                excellent.Add(item, item.ExcelentPupils());
+                Console.WriteLine(item);
+                Console.WriteLine("{0} {1}", excellent.Last().Key.Name, excellent.Last().Value);
+            }
 
-            Console.WriteLine(grp);
-
+            
             Console.ReadKey();
         }
     }
